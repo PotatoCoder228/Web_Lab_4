@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "t_user")
+@Table(name = "users_db")
 
 @Entity
 public class UserEntity {
@@ -22,15 +22,10 @@ public class UserEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "login", length = 15)
+    @Column(name = "login", length = 15, nullable = false)
     private String login;
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    public UserEntity(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
 
 }

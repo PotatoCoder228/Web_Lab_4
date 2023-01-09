@@ -6,6 +6,7 @@ import ru.itmo.potatocoder228.lab4.web_lab_4.entities.UserEntity;
 
 
 //Придерживаемся правил именования, метод интерфейса Spring генерит автоматом
+//Spring Data
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     UserEntity findByLogin(String login);

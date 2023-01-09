@@ -15,10 +15,9 @@ import ru.itmo.potatocoder228.lab4.web_lab_4.repo.UserRepository;
 @Service
 @AllArgsConstructor
 public class AuthService {
+    private final BCryptPasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
-
-    private final BCryptPasswordEncoder passwordEncoder;
 
     public ResponseDto login(AuthDto authDto) {
         //Вытаскивается логин и пароль из запроса
