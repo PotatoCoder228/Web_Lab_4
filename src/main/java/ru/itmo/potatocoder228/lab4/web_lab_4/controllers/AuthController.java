@@ -15,10 +15,6 @@ public class AuthController {
     private AuthService authService;
 
     @GetMapping("/login")
-    public String aboba() {
-        return "<h2>Hello there!</h2>";//TODO не забыть убрать
-    }
-    @PostMapping("/login")
     public ResponseDto login(@RequestBody AuthDto authentication) {
         return authService.login(authentication);
     }

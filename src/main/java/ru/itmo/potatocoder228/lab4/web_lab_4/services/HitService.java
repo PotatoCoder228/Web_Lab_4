@@ -29,7 +29,7 @@ public class HitService {
 
     public String addUserHit(HitDto hitDto) {
         ShotValidator validator = new ShotValidator();
-        if(!validator.validateData(hitDto)){
+        if (!validator.validateData(hitDto)) {
             return "Некорректные координаты выстрела!";
         }
         HitEntity hit = new HitEntity();

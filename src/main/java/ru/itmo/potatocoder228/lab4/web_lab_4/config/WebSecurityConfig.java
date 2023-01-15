@@ -21,17 +21,17 @@ public class WebSecurityConfig implements WebMvcConfigurer {
      * mvcMatcher более безопасный?(не очень понял, кажется, разница в том, что antMatcher - это другой способ определения)
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
                 .mvcMatchers("/user/**")
                 .authenticated()
-                .mvcMatchers("/login" , "/registration")
+                .mvcMatchers("/", "/login", "/registration")
                 .permitAll()
                 .and()
                 .cors()
                 .and()
                 .csrf().disable()
-                .logout().logoutSuccessUrl("/login").and().build();
+                .logout().logoutSuccessUrl("/login").and().httpBasic().and().build();
     }
 
     @Override
@@ -47,6 +47,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

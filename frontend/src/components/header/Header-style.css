@@ -1,0 +1,27 @@
+.Header-logo {
+    height: 10vmin;
+    pointer-events: none;
+    float: left;
+}
+
+#Lab-name, #Maker-name, #Maker-group {
+    text-align: center;
+    margin-right: 10%;
+    margin-left: 10%;
+    color: deepskyblue;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .Header-logo {
+        animation: Header-logo-spin infinite 20s linear;
+    }
+}
+
+@keyframes Header-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
