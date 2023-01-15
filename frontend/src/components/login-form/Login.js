@@ -23,7 +23,7 @@ export function Login() {
                 <button className="Log-in-button" type="submit">Войти</button>
             </div>
             <div id="Reg-div">
-                <a className="Reg-link" href="/registration" type="">Зарегистрироваться</a>
+                <a className="Reg-link" href="/registration">Регистрация</a>
             </div>
         </div>
     );
