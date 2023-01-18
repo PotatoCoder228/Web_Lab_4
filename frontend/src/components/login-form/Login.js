@@ -3,7 +3,7 @@ import './Login-style.css';
 
 export function Login() {
     //TODO сделать из этого форму, пока так оставляю
-    const handleLogIn = ()=>{
+    const handleLogIn = () => {
         return "aboba";
     };
 

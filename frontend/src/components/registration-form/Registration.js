@@ -2,7 +2,7 @@ import React from 'react';
 import './Registration-style.css';
 
 export function Registration() {
-    return(
+    return (
         <div id="Registration-block">
             <div id="login-row">
                 <div id="input-login-name">Придумайте логин:</div>

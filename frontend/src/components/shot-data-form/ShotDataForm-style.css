@@ -1,0 +1,19 @@
+.MainPage-column {
+    display: table-cell;
+    table-layout: fixed;
+    box-sizing: border-box;
+    text-align: center;
+    width: auto;
+}
+
+.MainPage-input-name {
+    margin-top: 5%;
+    margin-bottom: 15%;
+    min-width: 300px;
+    text-align: center;
+    width: 100%;
+}
+
+.MainPage-inputs {
+    margin-top: 40px;
+}

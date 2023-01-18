@@ -1,0 +1,30 @@
+.Image-container {
+    min-width: 440px;
+    max-width: 440px;
+    box-shadow: 0 0 5px #616afb;
+}
+
+.Header-col-name {
+    min-height: 50px;
+    text-align: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 440px;
+    color: #616afb;
+    box-shadow: 0 0 5px #616afb;
+}
+
+.Canvas-container {
+    position: center;
+    box-shadow: 0 0 5px #616afb;
+    text-align: center;
+    min-width: 440px;
+    max-width: 440px;
+    min-height: 440px;
+}
+
+.Svg-graph, .Cur-graph {
+    position: absolute;
+    left: 0;
+    right: 0;
+}

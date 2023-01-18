@@ -1,0 +1,7 @@
+.MainPage-table {
+    width: 100%;
+    display: table;
+    margin: 0;
+    min-height: 500px;
+    box-shadow: 0 0 5px #616afb;
+}

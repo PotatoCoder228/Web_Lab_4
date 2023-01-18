@@ -1,0 +1,47 @@
+.Table-container{
+    min-width: 440px;
+    box-shadow: 0 0 5px #616afb;
+}
+.MainPage-column-name{
+    text-align: center;
+    box-shadow: 0 0 5px #616afb;
+}
+.ResultTable-table{
+    width: 100%;
+    min-width: 440px;
+    box-shadow: 0 0 5px #616afb;
+}
+
+thead{
+    max-height: 10px;
+    height: 10%;
+    width: 100%;
+    box-shadow: 0 0 5px #616afb;
+}
+
+.ResultTable-column-name{
+    max-height: 20px;
+    min-height: 10px;
+    width: 100%;
+}
+#Column-name-X{
+    width: 20%;
+    min-width: 10px;
+    box-shadow: 0 0 5px #616afb;
+}
+#Column-name-Y{
+    width: 20%;
+    min-width: 10px;
+    box-shadow: 0 0 5px #616afb;
+}
+#Column-name-R{
+    width: 20%;
+    min-width: 10px;
+    box-shadow: 0 0 5px #616afb;
+}
+#Column-name-Hit{
+    max-width: 100px;
+    min-width: 50px;
+    width: 25%;
+    box-shadow: 0 0 5px #616afb;
+}
