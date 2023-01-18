@@ -1,13 +1,9 @@
 .Header-logo {
-    height: 10vmin;
-    pointer-events: none;
-    float: left;
+    height: 40px;
 }
 
 #Lab-name, #Maker-name, #Maker-group {
     text-align: center;
-    margin-right: 10%;
-    margin-left: 10%;
     color: #616afb;
 }
 

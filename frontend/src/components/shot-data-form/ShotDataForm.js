@@ -13,49 +13,53 @@ const ShotDataForm = ({serverPort}) => {
     }
 
     return (
-        <div className="MainPage-column">
-            <div className="MainPage-column-name">Coordinates</div>
-            <form className="coordinates-form" onSubmit={handleSubmit(onSubmit)}>
-                <div className="MainPage-inputs">
+        <div className="ShotDataForm-column">
+            <div className="ShotDataForm-column-name">Coordinates</div>
+            <form className="ShotDataForm-coordinates-form" onSubmit={handleSubmit(onSubmit)}>
+                <div className="ShotDataForm-inputs">
 
-                    <div className="MainPage-input-name">
-                        Input X:
+                    <div className="ShotDataForm-input-name">
+                        Enter X:
                     </div>
-                    <div className="MainPage-input">
-                        <input type="checkbox" name="xValue" value="-4"/>-4
-                        <input type="checkbox" name="xValue" value="-3"/>-3
-                        <input type="checkbox" name="xValue" value="-2"/>-2
-                        <input type="checkbox" name="xValue" value="-1"/>-1
-                        <input type="checkbox" name="xValue" value="0"/>0
-                        <input type="checkbox" name="xValue" value="1"/>1
-                        <input type="checkbox" name="xValue" value="2"/>2
-                        <input type="checkbox" name="xValue" value="3"/>3
-                        <input type="checkbox" name="xValue" value="4"/>4
+                    <div className="ShotDataForm-input" id="ShotDataForm-input-x">
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-4"/>-4
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-3"/>-3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-2"/>-2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-1"/>-1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="0"/>0
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="1"/>1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="2"/>2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="3"/>3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="4"/>4
                     </div>
 
-                    <div className="MainPage-input-name">
-                        Input Y:
+                    <div className="ShotDataForm-input-name">
+                        Enter Y:
                     </div>
-                    <div className="MainPage-input">
+                    <div className="ShotDataForm-input" id="ShotDataForm-input-y">
                         <input type="text" autoComplete="true"></input>
                     </div>
-                    <div className="MainPage-input-name">
-                        Input R:
+                    <div className="ShotDataForm-input-name">
+                        Enter R:
                     </div>
-                    <div className="MainPage-input">
-                        <button className="DataForm-button" value="1">
+                    <div className="ShotDataForm-input" id="ShotDataForm-input-r">
+                        <button className="ShotDataForm-button-r" value="1">
                             1
                         </button>
-                        <button className="DataForm-button" value="1">
+                        <button className="ShotDataForm-button-r" value="1">
                             2
                         </button>
-                        <button className="DataForm-button" value="1">
+                        <button className="ShotDataForm-button-r" value="1">
                             3
                         </button>
-                        <button className="DataForm-button" value="1">
+                        <button className="ShotDataForm-button-r" value="1">
                             4
                         </button>
                     </div>
+                </div>
+                <div className="ShotDataForm-request-buttons">
+                    <input type="submit" id="ShotDataForm-input-submit" value="Отправить"/>
+                    <input type="submit" id="ShotDataForm-input-clear" value="Очистить"/>
                 </div>
             </form>
         </div>

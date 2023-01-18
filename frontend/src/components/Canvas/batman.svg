@@ -2,29 +2,29 @@
 
 
     <rect x="0" y="0" width="220" height="220"
-          fill="rgb(25,25,25)"
+          fill="#282d39"
     />
     <ellipse class="svg-figure batman-figure" rx="66" ry="33" cx="110" cy="110"
              fill="#616afb" fill-opacity="0.75" stroke-opacity="0.5"/>
 
     <ellipse class="svg-figure batman-figure" rx="11" ry="15" cx="110" cy="70"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
 
     <ellipse class="svg-figure batman-figure" rx="11" ry="25" cx="90" cy="75"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
 
     <ellipse class="svg-figure batman-figure" rx="10" ry="25" cx="130" cy="75"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
 
     <ellipse style="transform: rotate(125 deg);" class="svg-figure batman-figure" rx="8" ry="13" cx="100" cy="145"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
     <ellipse style="transform: rotate(125 deg);" class="svg-figure batman-figure" rx="8" ry="13" cx="120" cy="145"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
 
     <ellipse class="svg-figure batman-figure" rx="10" ry="15" cx="85" cy="145"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
     <ellipse class="svg-figure batman-figure" rx="10" ry="15" cx="135" cy="145"
-             fill="rgb(25,25,25)"/>
+             fill="#282d39"/>
 
 
     <!-- X-Axis -->

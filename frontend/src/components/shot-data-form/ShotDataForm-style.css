@@ -1,19 +1,193 @@
-.MainPage-column {
-    display: table-cell;
-    table-layout: fixed;
-    box-sizing: border-box;
-    text-align: center;
-    width: auto;
+@media screen and (min-width: 1090px) {
+    .ShotDataForm-column {
+        border-left: 1px solid #616afb;
+        border-right: 1px solid #616afb;
+        margin-left: 0;
+        display: table-cell;
+        table-layout: fixed;
+        text-align: center;
+        min-width: 400px;
+        width: 100%;
+    }
+
+    .ShotDataForm-column-name {
+        min-height: 50px;
+        text-align: center;
+        margin: 0 auto;
+        box-sizing: border-box;
+        color: #616afb;
+    }
+
+    .ShotDataForm-coordinates-form {
+        border-top: 1px solid #616afb;
+        margin-top: 0;
+        /*box-shadow: 0 0 5px #616afb;
+        min-height: 440px;*/
+    }
+
+    .ShotDataForm-input-name {
+        text-align: left;
+        margin: 25px;
+    }
+
+    #ShotDataForm-input-x {
+        margin-left: 5%;
+        text-align: left;
+        max-width: 45px;
+        min-height: 200px;
+    }
+
+    .ShotDataForm-checkbox-x {
+        text-align: left;
+    }
+
+    .ResultTable-columns {
+        border: 1px solid #616afb;
+    }
+
+
+    #ShotDataForm-input-y {
+        text-align: left;
+        margin-left: 5%;
+        margin-bottom: 5%;
+    }
+
+
+    #ShotDataForm-input-r {
+        text-align: left;
+        margin-left: 5%;
+        margin-bottom: 5%;
+    }
 }
 
-.MainPage-input-name {
-    margin-top: 5%;
-    margin-bottom: 15%;
-    min-width: 300px;
-    text-align: center;
-    width: 100%;
+@media screen and (max-width: 1089px) {
+    .ShotDataForm-column {
+        border-left: 1px solid #616afb;
+        border-right: 1px solid #616afb;
+        margin-left: 0;
+        display: table-cell;
+        table-layout: fixed;
+        text-align: center;
+        min-width: 400px;
+        width: 100%;
+        float: left
+    }
+
+    .ShotDataForm-column-name {
+        min-height: 50px;
+        text-align: center;
+        margin: 0 auto;
+        box-sizing: border-box;
+        color: #616afb;
+    }
+
+    .ShotDataForm-coordinates-form {
+        border-top: 1px solid #616afb;
+        margin-top: 0;
+        /*box-shadow: 0 0 5px #616afb;
+        min-height: 440px;*/
+    }
+
+    .ShotDataForm-input-name {
+        text-align: center;
+        margin: 3%;
+    }
+
+    #ShotDataForm-input-x {
+        margin-left: 45%;
+        text-align: left;
+        max-width: 50px;
+        min-height: 200px;
+    }
+
+    .ShotDataForm-checkbox-x {
+        text-align: left;
+    }
+
+    .ResultTable-columns {
+        border: 1px solid #616afb;
+    }
+
+
+    #ShotDataForm-input-y {
+        text-align: center;
+        margin-bottom: 5%;
+    }
+
+
+    #ShotDataForm-input-r {
+        text-align: center;
+        margin-bottom: 5%;
+    }
 }
 
-.MainPage-inputs {
-    margin-top: 40px;
+.ShotDataForm-button-r {
+    margin: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #616afb;
+    border: 0;
+    height: 25px;
+    width: 50px;
+    border-radius: 10px;
+}
+
+.ShotDataForm-button-r:hover {
+    background: deepskyblue;
+}
+
+.ShotDataForm-button-r:active {
+    background: #282d39;
+}
+
+.ShotDataForm-request-buttons {
+    min-height: 50px;
+    text-align: center;
+}
+
+#ShotDataForm-input-submit {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #616afb;
+    border: 0;
+    margin: 5%;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+#ShotDataForm-input-submit:hover {
+    background: deepskyblue;
+}
+
+#ShotDataForm-input-submit:active {
+    background: #282d39;
+}
+
+#ShotDataForm-input-clear {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #616afb;
+    border: 0;
+    margin: 5%;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+#ShotDataForm-input-clear:hover {
+    background: deepskyblue;
+}
+
+#ShotDataForm-input-clear:active {
+    background: #282d39;
 }
