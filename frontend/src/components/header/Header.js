@@ -1,12 +1,41 @@
 import React from 'react';
 import logo from './logo.svg';
+import {useHistory} from "react-router-dom";
 import './Header-style.css';
+import axiosInstance from "../axios/Axios";
 
-export function Header() {
+export function Header({
+                           setIsLoggedIn,
+                            isLoggedIn
+                       }) {
+
+    const history = useHistory()
+
+    const onLogoClick = (e) => {
+        console.log("Clicked");
+        if(!isLoggedIn){
+            history.push("/login");
+            return;
+        }
+        setIsLoggedIn(false);
+        axiosInstance.post('/logout', {}, {withCredentials: true})
+            .then(function (response) {
+                console.log(response);
+                if (response.status === 200) {
+                    setIsLoggedIn(true);
+                    console.log("OK");
+                } else {
+                    setIsLoggedIn(false);
+                    console.log("NOT OK")
+                }
+            }).catch(function (error) {
+            console.log(error);
+        });
+    }
 
     return (
         <div>
-            <a href="/login"><img className="Header-logo" src={logo}/></a>
+            <img className="Header-logo" onClick={onLogoClick} src={logo}/>
             <header className="App-header">
                 <h1 id="Lab-name">Лабораторная работа №4</h1>
                 <h2 id="Maker-name">Аталян Александр Эдуардович</h2>

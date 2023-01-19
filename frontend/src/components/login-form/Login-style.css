@@ -13,6 +13,20 @@
     box-shadow: 0 0 5px #616afb;
 }
 
+h2 {
+    color: #616afb;
+}
+
+.Login-error {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 50%;
+    color: floralwhite;
+    margin-bottom: 5%;
+}
+
 #login-row, #password-row {
     background-color: rgb(80, 80, 80);
     width: 100%;

@@ -24,14 +24,14 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
                 .mvcMatchers("/user/**")
-                .authenticated()
-                .mvcMatchers("/", "/login", "/registration")
+                .hasAnyRole("USER")
+                .mvcMatchers("/", "/login", "/registration", "/logout")
                 .permitAll()
                 .and()
                 .cors()
                 .and()
                 .csrf().disable()
-                .logout().logoutSuccessUrl("/login").and().httpBasic().and().build();
+                .logout().and().httpBasic().and().build();
     }
 
     @Override

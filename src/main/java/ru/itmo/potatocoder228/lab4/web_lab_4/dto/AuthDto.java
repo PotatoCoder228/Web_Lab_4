@@ -12,5 +12,5 @@ import lombok.*;
 @ToString
 public class AuthDto {
     private String login;
-    private String password;
+    private CharSequence password;
 }

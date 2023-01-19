@@ -1,10 +1,11 @@
-
 @media screen and (min-width: 1090px) {
     .Main-div {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 5%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 5%;
+        font-weight: bolder;
     }
+
     .MainPage-table {
         width: 100%;
         display: table;
@@ -13,10 +14,11 @@
     }
 }
 
-@media screen and (max-width: 1089px){
+@media screen and (max-width: 1089px) {
     .MainPage-table {
         width: 100%;
         display: table;
         border: 1px solid #616afb;
+        font-weight: bolder;
     }
 }

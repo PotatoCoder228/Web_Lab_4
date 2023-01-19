@@ -22,11 +22,11 @@ public class AuthService {
     public ResponseDto login(AuthDto authDto) {
         //Вытаскивается логин и пароль из запроса
         Authentication authenticate = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authDto.getLogin(), passwordEncoder.encode(authDto.getPassword())));
+                .authenticate(new UsernamePasswordAuthenticationToken(authDto.getLogin(), authDto.getPassword()));
         SecurityContextHolder.clearContext();
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         UserEntity user = userRepository
-                .findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+                .findByLogin(authDto.getLogin());
         ResponseDto response = new ResponseDto();
         response.setResult(user.getLogin());
         return response;
@@ -41,10 +41,10 @@ public class AuthService {
         }
         UserEntity user = new UserEntity();
         user.setLogin(authDto.getLogin());
-        user.setPassword(authDto.getPassword());
+        user.setPassword(passwordEncoder.encode(authDto.getPassword()));
         userRepository.save(user);
         Authentication authenticate = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authDto.getLogin(), passwordEncoder.encode(authDto.getPassword())));
+                .authenticate(new UsernamePasswordAuthenticationToken(authDto.getLogin(), authDto.getPassword()));
         SecurityContextHolder.clearContext();
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         ResponseDto response = new ResponseDto();
@@ -52,4 +52,16 @@ public class AuthService {
         return response;
     }
 
+    public ResponseDto delete(AuthDto authDto) {
+        ResponseDto response = new ResponseDto();
+        UserEntity userEntityFromDb = userRepository.findByLogin(authDto.getLogin());
+        if (userEntityFromDb == null) {
+            response = new ResponseDto();
+            response.setResult("Такого пользователя не существует!");
+            return response;
+        }
+        userRepository.delete(userEntityFromDb);
+        response.setResult("Пользователь успешно удалён");
+        return response;
+    }
 }
