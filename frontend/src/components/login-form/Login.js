@@ -38,20 +38,20 @@ export function Login({
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
+                    setIsLoggedIn('true');
                     console.log("OK");
-                    history.push('/');
+                    history.push('/user/');
                 } else {
-                    setIsLoggedIn(false);
+                    setIsLoggedIn('false');
                     console.log("NOT OK")
                     history.push('/');//TODO сделать красную надпись, при отсутствии пользователя в БД
                 }
             }).catch(function (error) {
-            console.log(error)
-            logStat =
+                setIsLoggedIn('false');
+                logStat =
                 <div className="Login-error">Не правильный логин или пароль.<br></br>Перепроверьте или зарегистрируйтесь
                     на сайте.</div>;
-            history.push('/');
+                history.push('/');
         });
     };
 

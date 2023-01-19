@@ -6,26 +6,25 @@ import axiosInstance from "../axios/Axios";
 
 export function Header({
                            setIsLoggedIn,
-                            isLoggedIn
+                           isLoggedIn
                        }) {
 
     const history = useHistory()
 
     const onLogoClick = (e) => {
         console.log("Clicked");
-        if(!isLoggedIn){
+        if (!isLoggedIn) {
+            setIsLoggedIn('false');
             history.push("/login");
             return;
         }
-        setIsLoggedIn(false);
         axiosInstance.post('/logout', {}, {withCredentials: true})
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
+                    setIsLoggedIn('false');
                     console.log("OK");
                 } else {
-                    setIsLoggedIn(false);
                     console.log("NOT OK")
                 }
             }).catch(function (error) {

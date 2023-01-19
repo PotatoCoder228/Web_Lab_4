@@ -15,8 +15,8 @@ export function Registration({
     const [checkPassword, setCheckPassword] = useState('');
 
     const useForceRerendering = () => {
-    const [counter, setCounter] = React.useState(0);
-    return () => setCounter(counter => counter + 1);
+        const [counter, setCounter] = React.useState(0);
+        return () => setCounter(counter => counter + 1);
     };
     const forceRerendering = useForceRerendering();
 
@@ -57,22 +57,21 @@ export function Registration({
                 password: password
             }, {withCredentials: true})
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 200) {
-                        setIsLoggedIn(true);
+                        setIsLoggedIn('true');
                         regErr = <div className="Registration-error">Регистрация прошла успешно</div>
                         console.log("OK");
                         history.push('/user/');
                     } else {
-                        setIsLoggedIn(false);
+                        setIsLoggedIn('false');
                         console.log("NOT OK")
                         regErr = <div className="Registration-error">Что-то пошло не так...</div>
                         history.push('/registration');
                     }
                 }).catch(function (error) {
-                    forceRerendering();
-                    regErr = <div className="Registration-error">{error.response.data.result}</div>
-                    history.push('/registration');
+                forceRerendering();
+                regErr = <div className="Registration-error">{error.response.data.result}</div>
+                history.push('/registration');
             });
         }
     };

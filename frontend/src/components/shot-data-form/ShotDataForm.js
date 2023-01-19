@@ -2,7 +2,7 @@ import React from 'react';
 import './ShotDataForm-style.css';
 import {useForm} from "react-hook-form";
 
-const ShotDataForm = ({serverPort}) => {
+const ShotDataForm = () => {
 
     const {
         handleSubmit,
@@ -10,6 +10,16 @@ const ShotDataForm = ({serverPort}) => {
 
     const onSubmit = () => {
         //TODO сделать отправку запроса
+    }
+
+    const checkBoxOneValue = (e)=> {
+        let checkboxes = document.getElementsByClassName("ShotDataForm-checkbox-x");
+        for(let i = 0; i < checkboxes.length; i++){
+            checkboxes[i].checked = false;
+            if(e.target.value === checkboxes[i].value){
+                checkboxes[i].checked = true;
+            }
+        }
     }
 
     return (
@@ -22,22 +32,22 @@ const ShotDataForm = ({serverPort}) => {
                         Enter X:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-x">
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-4"/>-4
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-3"/>-3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-2"/>-2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="-1"/>-1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="0"/>0
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="1"/>1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="2"/>2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="3"/>3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" value="4"/>4
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-4"/>-4
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-3"/>-3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-2"/>-2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-1"/>-1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="0"/>0
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="1"/>1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="2"/>2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="3"/>3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="4"/>4
                     </div>
 
                     <div className="ShotDataForm-input-name">
                         Enter Y:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-y">
-                        <input type="text" autoComplete="true"></input>
+                        <input type="text" placeholder="From -3 to 5." autoComplete="true"></input>
                     </div>
                     <div className="ShotDataForm-input-name">
                         Enter R:

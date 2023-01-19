@@ -7,7 +7,6 @@ import ru.itmo.potatocoder228.lab4.web_lab_4.dto.HitDto;
 import ru.itmo.potatocoder228.lab4.web_lab_4.entities.HitEntity;
 import ru.itmo.potatocoder228.lab4.web_lab_4.repo.HitRepository;
 import ru.itmo.potatocoder228.lab4.web_lab_4.utils.AreaChecker;
-import ru.itmo.potatocoder228.lab4.web_lab_4.utils.ShotValidator;
 
 import java.util.List;
 
@@ -28,10 +27,6 @@ public class HitService {
     }
 
     public String addUserHit(HitDto hitDto) {
-        ShotValidator validator = new ShotValidator();
-        if (!validator.validateData(hitDto)) {
-            return "Некорректные координаты выстрела!";
-        }
         HitEntity hit = new HitEntity();
         hit.setX(hitDto.getX());
         hit.setY(hitDto.getY());
