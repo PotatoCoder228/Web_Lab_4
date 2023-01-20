@@ -1,7 +1,10 @@
 import React from 'react';
 import './ResultTable-style.css';
 
-export function ResultTable() {
+export function ResultTable({rows}) {
+
+
+
     return (
         <div className='Table-container'>
             <div className="ResultTable-column-name">Results</div>
@@ -12,8 +15,8 @@ export function ResultTable() {
                 <th className="ResultTable-column-name" id="Column-name-R">R</th>
                 <th className="ResultTable-column-name" id="Column-name-Hit">Hit</th>
                 </thead>
-                <tbody className="ResultTable-columns">
-
+                <tbody>
+                {rows.render()}
                 </tbody>
             </table>
         </div>);

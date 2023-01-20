@@ -1,11 +1,11 @@
 import React from 'react';
 import './Canvas-style.css';
 import svgImage from './batman.svg';
-import * as svgjs from "@svgdotjs/svg.js";
 
-export function Canvas() {
+export function Canvas({coordinates, rows}) {
 
     const canvasRender = (event) => {
+
     }
 
     return (
@@ -15,9 +15,9 @@ export function Canvas() {
             </div>
             <div className="Image-container">
                 <img src={svgImage} className="Svg-graph" width="440" height="440" alt="График"/>
-                <canvas className="Prev-hits-graph" id = "Prev-hits-graph" width="440" height="440">Предыдущие проверки
+                <canvas className="Prev-hits-graph" id="Prev-hits-graph" width="440" height="440">Предыдущие проверки
                 </canvas>
-                <canvas className="Cur-graph" onClick={canvasRender} id = "Cur-graph" width="440"
+                <canvas className="Cur-graph" onClick={canvasRender} id="Cur-graph" width="440"
                         height="440">Интерактивная область графика
                 </canvas>
             </div>

@@ -37,6 +37,6 @@ public class HitService {
         hit.setHitResult(hitResult);
         hit.setLogin(hitDto.getLogin());
         dao.save(hit);
-        return "Выстрел добавлен в таблицу!";
+        return hitResult;
     }
 }

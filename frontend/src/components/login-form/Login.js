@@ -6,7 +6,7 @@ import axiosInstance from "../axios/Axios";
 let logStat = "";
 
 export function Login({
-                          setIsLoggedIn,
+                          setIsLoggedIn
                       }) {
     //TODO сделать из этого форму, пока так оставляю
 
@@ -28,6 +28,7 @@ export function Login({
         history.push('/registration');
     }
 
+
     const handleLogIn = (e) => {
         e.preventDefault();
 
@@ -38,20 +39,20 @@ export function Login({
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
-                    setIsLoggedIn('true');
                     console.log("OK");
+                    setIsLoggedIn('true');
                     history.push('/user/');
                 } else {
                     setIsLoggedIn('false');
                     console.log("NOT OK")
-                    history.push('/');//TODO сделать красную надпись, при отсутствии пользователя в БД
+                    history.push('/');
                 }
             }).catch(function (error) {
-                setIsLoggedIn('false');
-                logStat =
+            setIsLoggedIn('false');
+            logStat =
                 <div className="Login-error">Не правильный логин или пароль.<br></br>Перепроверьте или зарегистрируйтесь
                     на сайте.</div>;
-                history.push('/');
+            history.push('/');
         });
     };
 

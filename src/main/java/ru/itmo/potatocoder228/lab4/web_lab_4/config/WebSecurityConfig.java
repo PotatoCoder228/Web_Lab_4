@@ -23,7 +23,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
-                .mvcMatchers("/user/**")
+                .mvcMatchers("/user/**", "/hits")
                 .hasAnyRole("USER")
                 .mvcMatchers("/", "/login", "/registration", "/logout")
                 .permitAll()
@@ -31,7 +31,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .cors()
                 .and()
                 .csrf().disable()
-                .logout().and().httpBasic().and().build();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login").and().httpBasic().and().build();
     }
 
     @Override

@@ -33,13 +33,6 @@ public class AuthController {
         return authService.delete(authentication);
     }
 
-    @PostMapping("/logout")
-    public ResponseDto logout(@RequestBody AuthDto authentication) {
-        ResponseDto response = new ResponseDto();
-        response.setResult("logout");
-        return response;
-    }
-
     @ExceptionHandler(AuthenticationException.class)
     ResponseEntity<ResponseDto> handleAuthenticationException(AuthenticationException exception) {
         ResponseDto response = new ResponseDto();

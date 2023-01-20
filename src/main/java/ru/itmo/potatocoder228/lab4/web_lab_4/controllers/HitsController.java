@@ -3,6 +3,7 @@ package ru.itmo.potatocoder228.lab4.web_lab_4.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.potatocoder228.lab4.web_lab_4.dto.HitDto;
+import ru.itmo.potatocoder228.lab4.web_lab_4.dto.ResponseHitDto;
 import ru.itmo.potatocoder228.lab4.web_lab_4.entities.HitEntity;
 import ru.itmo.potatocoder228.lab4.web_lab_4.services.HitService;
 
@@ -23,9 +24,14 @@ public class HitsController {
     }
 
     @PostMapping("/hits")
-    public String addNewHit(@RequestBody HitDto hit, Principal user) {
+    public ResponseHitDto addNewHit(@RequestBody HitDto hit, Principal user) {
         hit.setLogin(user.getName());
-        return hitService.addUserHit(hit);
+        ResponseHitDto response = new ResponseHitDto();
+        response.setX(hit.getX());
+        response.setY(hit.getY());
+        response.setR(hit.getR());
+        response.setHitResult(hitService.addUserHit(hit));
+        return response;
     }
 
     @DeleteMapping("/hits")

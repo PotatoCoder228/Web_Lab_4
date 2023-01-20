@@ -1,76 +1,119 @@
 import React from 'react';
 import './ShotDataForm-style.css';
-import {useForm} from "react-hook-form";
+import axiosInstance from "../axios/Axios";
 
-const ShotDataForm = () => {
+const ShotDataForm = ({coordinates, rows}) => {
 
-    const {
-        handleSubmit,
-    } = useForm();
+    coordinates.setX(0);
+    coordinates.setY(0);
+    coordinates.setR(1);
 
-    const onSubmit = () => {
-        //TODO сделать отправку запроса
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        axiosInstance.post('/hits', {
+            x: coordinates.getX(),
+            y: coordinates.getY(),
+            r: coordinates.getR(),
+            login: ""
+        }, {withCredentials: true})
+            .then(function (response) {
+                if (response.status === 200) {
+                    coordinates.setHitResult(response.data.hitResult);
+                    rows.addRow(coordinates);
+                    console.log("x:" + response.data.x);
+                    console.log("y:" + response.data.y);
+                    console.log("r:" + response.data.r);
+                    console.log("hitResult:" + response.data.hitResult);
+                } else {
+                    console.log("Hit is Not OK");
+                }
+            }).catch((error) => {
+            console.log(error);
+        });
     }
 
-    const checkBoxOneValue = (e)=> {
+    const checkBoxOneValue = (e) => {
         let checkboxes = document.getElementsByClassName("ShotDataForm-checkbox-x");
-        for(let i = 0; i < checkboxes.length; i++){
+        for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = false;
-            if(e.target.value === checkboxes[i].value){
+            if (e.target.value === checkboxes[i].value) {
                 checkboxes[i].checked = true;
+                coordinates.setX(checkboxes[i].value);
+                console.log(checkboxes[i].value);
             }
         }
+    }
+
+    const onInputTextChange = (e) => {
+        let text = document.getElementsByClassName("ShotDataForm-text-y");
+        coordinates.setY(text[0].value);
+    }
+
+    const onButtonChange = (e) => {
+        e.preventDefault();
+        coordinates.setR(e.target.value);
     }
 
     return (
         <div className="ShotDataForm-column">
             <div className="ShotDataForm-column-name">Coordinates</div>
-            <form className="ShotDataForm-coordinates-form" onSubmit={handleSubmit(onSubmit)}>
+            <form className="ShotDataForm-coordinates-form" onSubmit={onSubmit}>
                 <div className="ShotDataForm-inputs">
 
                     <div className="ShotDataForm-input-name">
                         Enter X:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-x">
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-4"/>-4
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-3"/>-3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-2"/>-2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="-1"/>-1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="0"/>0
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="1"/>1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="2"/>2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="3"/>3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue} value="4"/>4
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="-4"/>-4
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="-3"/>-3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="-2"/>-2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="-1"/>-1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="0"/>0
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="1"/>1
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="2"/>2
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="3"/>3
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                               value="4"/>4
                     </div>
 
                     <div className="ShotDataForm-input-name">
                         Enter Y:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-y">
-                        <input type="text" placeholder="From -3 to 5." autoComplete="true"></input>
+                        <input type="text" required="true" className="ShotDataForm-text-y" placeholder="From -3 to 5."
+                               onChange={onInputTextChange} autoComplete="true"></input>
                     </div>
                     <div className="ShotDataForm-input-name">
                         Enter R:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-r">
-                        <button className="ShotDataForm-button-r" value="1">
+                        <button className="ShotDataForm-button-r" onClick={onButtonChange} value="1">
                             1
                         </button>
-                        <button className="ShotDataForm-button-r" value="1">
+                        <button className="ShotDataForm-button-r" onClick={onButtonChange} value="2">
                             2
                         </button>
-                        <button className="ShotDataForm-button-r" value="1">
+                        <button className="ShotDataForm-button-r" onClick={onButtonChange} value="3">
                             3
                         </button>
-                        <button className="ShotDataForm-button-r" value="1">
+                        <button className="ShotDataForm-button-r" onClick={onButtonChange} value="4">
                             4
                         </button>
                     </div>
                 </div>
                 <div className="ShotDataForm-request-buttons">
-                    <input type="submit" id="ShotDataForm-input-submit" value="Отправить"/>
-                    <input type="submit" id="ShotDataForm-input-clear" value="Очистить"/>
+                    <button id="ShotDataForm-input-submit" type="submit">Отправить</button>
                 </div>
+                <input type="submit" id="ShotDataForm-input-clear" value="Очистить"/>
             </form>
         </div>
     );
@@ -78,21 +121,3 @@ const ShotDataForm = () => {
 
 
 export default ShotDataForm;
-
-/*
-let tryToSendAddAttemptRequest = async (port, token, data) => {
-  console.log(port);
-  let url = "http://localhost:"+ port +"/attempts";
-  console.log("Sending POST request to url: " + url + ". With body: " + JSON.stringify(data));
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + token
-    },
-    mode: 'cors',
-    body: JSON.stringify(data),
-  });
-  return await response.json();
-}
-*/
