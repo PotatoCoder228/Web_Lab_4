@@ -41,7 +41,6 @@ export function Login({
                 if (response.status === 200) {
                     console.log("OK");
                     setIsLoggedIn('true');
-                    rows.render();
                     history.push('/user/');
                 } else {
                     setIsLoggedIn('false');

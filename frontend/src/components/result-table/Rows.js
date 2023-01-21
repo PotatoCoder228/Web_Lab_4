@@ -10,9 +10,7 @@ class Rows{
     }
 
     deleteAll() {
-        while (this.rows.length > 0) {
-            this.rows.pop();
-        }
+        this.rows = [];
     }
 
     convertToRow(table) {
@@ -29,6 +27,12 @@ class Rows{
 
     render() {
         let table = document.getElementById("ResultTable-table");
+        let names;
+        if(table){
+            names = document.getElementById("names");
+            table.innerHTML = "";
+            table.append(names);
+        }
         for(let i = 0; i<this.rows.length; i++) {
             let div = document.createElement('div');
             div.className = "row-table"

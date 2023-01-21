@@ -22,7 +22,6 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
         });
     }
     loadTableFromServer(rows);
-    rows.render();
     return (
         <div>
             <Header setIsLoggedIn={setIsLoggedIn} rows={rows}></Header>

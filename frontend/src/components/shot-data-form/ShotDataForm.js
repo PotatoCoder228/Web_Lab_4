@@ -1,6 +1,7 @@
 import React from 'react';
 import './ShotDataForm-style.css';
 import axiosInstance from "../axios/Axios";
+import {Point} from "../../App";
 
 const ShotDataForm = ({coordinates, rows}) => {
 
@@ -18,8 +19,12 @@ const ShotDataForm = ({coordinates, rows}) => {
         }, {withCredentials: true})
             .then(function (response) {
                 if (response.status === 200) {
-                    coordinates.setHitResult(response.data.hitResult);
-                    rows.addRow(coordinates);
+                    let point = new Point();
+                    point.setX(response.data.x);
+                    point.setY(response.data.y);
+                    point.setR(response.data.r);
+                    point.setHitResult(response.data.hitResult);
+                    rows.addRow(point);
                     rows.render();
                     console.log("x:" + response.data.x);
                     console.log("y:" + response.data.y);
@@ -55,6 +60,22 @@ const ShotDataForm = ({coordinates, rows}) => {
         coordinates.setR(e.target.value);
     }
 
+    const onClearClick = (e)=>{
+        e.preventDefault();
+        axiosInstance.delete('/hits', {withCredentials: true})
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log("Clearing is ok");
+                    rows.deleteAll();
+                    rows.render();
+                } else {
+                    console.log("Clearing error");
+                }
+            }).catch((error) => {
+                console.log(error);
+        });
+    }
+
     return (
         <div className="ShotDataForm-column">
             <div className="ShotDataForm-column-name">Coordinates</div>
@@ -74,7 +95,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
                                value="-1"/>-1
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
-                               value="0"/>0
+                               value="0" checked="true"/>0
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
                                value="1"/>1
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
@@ -90,7 +111,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-y">
                         <input type="text" required="true" className="ShotDataForm-text-y" placeholder="From -3 to 5."
-                               onChange={onInputTextChange} autoComplete="true"></input>
+                               onChange={onInputTextChange} autoComplete="true" defaultValue="0"></input>
                     </div>
                     <div className="ShotDataForm-input-name">
                         Enter R:
@@ -113,7 +134,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                 <div className="ShotDataForm-request-buttons">
                     <button id="ShotDataForm-input-submit" type="submit">Отправить</button>
                 </div>
-                <input type="submit" id="ShotDataForm-input-clear" value="Очистить"/>
+                <button id="ShotDataForm-input-clear" onClick={onClearClick}>Очистить</button>
             </form>
         </div>
     );
