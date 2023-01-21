@@ -1,9 +1,10 @@
 @media screen and (min-width: 1090px) {
     .Main-div {
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-bottom: 5%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 10%;
         font-weight: bolder;
+        max-height: 600px;
     }
 
     .MainPage-table {
@@ -11,6 +12,7 @@
         display: table;
         min-height: 490px;
         border: 1px solid #616afb;
+        max-height: 600px;
     }
 }
 

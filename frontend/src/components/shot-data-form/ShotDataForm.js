@@ -133,8 +133,8 @@ const ShotDataForm = ({coordinates, rows}) => {
                 </div>
                 <div className="ShotDataForm-request-buttons">
                     <button id="ShotDataForm-input-submit" type="submit">Отправить</button>
+                    <button id="ShotDataForm-input-clear" onClick={onClearClick}>Очистить</button>
                 </div>
-                <button id="ShotDataForm-input-clear" onClick={onClearClick}>Очистить</button>
             </form>
         </div>
     );
