@@ -1,17 +1,14 @@
-import React from 'react';
+import React, {createElement} from 'react';
 import {Point} from "../../App";
 
-class Rows extends React.Component {
+class Rows{
     rows = [];
-
-    constructor(props) {
-        super(props);
-    }
 
 
     addRow(arg) {
         this.rows.push(arg);
     }
+
     deleteAll() {
         while (this.rows.length > 0) {
             this.rows.pop();
@@ -31,14 +28,28 @@ class Rows extends React.Component {
     }
 
     render() {
-        return this.rows.map((item) => {
-            return <div>
-                <th>{item.getX()}</th>
-                <th>{item.getY()}</th>
-                <th>{item.getR()}</th>
-                <th>{item.getHitResult()}</th>
-            </div>
-        })
+        let table = document.getElementById("ResultTable-table");
+        for(let i = 0; i<this.rows.length; i++) {
+            let div = document.createElement('div');
+            div.className = "row-table"
+            let x = document.createElement('div');
+            x.className = "x-column";
+            let y = document.createElement('div');
+            y.className = "y-column";
+            let r = document.createElement('div');
+            r.className = "r-column";
+            let hitResult = document.createElement('div');
+            hitResult.className = "hitResult-column";
+            x.append(this.rows[i].getX());
+            y.append(this.rows[i].getY());
+            r.append(this.rows[i].getR());
+            hitResult.append(this.rows[i].getHitResult());
+            div.append(x);
+            div.append(y);
+            div.append(r);
+            div.append(hitResult);
+            table.append(div);
+        }
     }
 }
 

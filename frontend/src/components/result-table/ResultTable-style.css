@@ -3,11 +3,37 @@
     box-shadow: 0 0 5px #616afb;
 }
 
+.names{
+    width: 100%;
+    display: table;
+}
+
+.row-table{
+    display: table;
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+
+.x-column, .y-column, .r-column{
+    min-width: 10px;
+    display: table-cell;
+    table-layout: fixed;
+    width: 20%;
+    box-sizing: border-box;
+    max-height: 20px;
+    border-right: 1px solid #616afb;
+}
+.hitResult-column{
+    min-width: 50px;
+}
+
 .ResultTable-table {
     width: 100%;
     min-width: 440px;
     border-bottom: 1px solid #616afb;
     border-top: 1px solid #616afb;
+    display: table;
 }
 
 thead {
@@ -15,6 +41,10 @@ thead {
     height: 10%;
     width: 100%;
     border: 1px solid #616afb;
+}
+
+.row-table{
+    border:1px solid #616afb ;
 }
 
 .ResultTable-column-name {
@@ -25,26 +55,37 @@ thead {
 }
 
 #Column-name-X {
-    width: 20%;
     min-width: 10px;
     border: 1px solid #616afb;
+    display: table-cell;
+    width: 20%;
+    box-sizing: border-box;
+    max-height: 20px;
 }
 
 #Column-name-Y {
-    width: 20%;
     min-width: 10px;
     border: 1px solid #616afb;
+    display: table-cell;
+    width: 20%;
+    box-sizing: border-box;
+    max-height: 20px;
 }
 
 #Column-name-R {
-    width: 20%;
     min-width: 10px;
     border: 1px solid #616afb;
+    display: table-cell;
+    width: 20%;
+    box-sizing: border-box;
+    max-height: 20px;
 }
 
 #Column-name-Hit {
-    max-width: 100px;
     min-width: 50px;
-    width: 25%;
+    width: 50%;
+    display: table-cell;
+    box-sizing: border-box;
     border: 1px solid #616afb;
+    max-height: 20px;
 }

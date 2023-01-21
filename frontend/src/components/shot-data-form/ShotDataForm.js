@@ -8,7 +8,6 @@ const ShotDataForm = ({coordinates, rows}) => {
     coordinates.setY(0);
     coordinates.setR(1);
 
-
     const onSubmit = (e) => {
         e.preventDefault();
         axiosInstance.post('/hits', {
@@ -21,6 +20,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                 if (response.status === 200) {
                     coordinates.setHitResult(response.data.hitResult);
                     rows.addRow(coordinates);
+                    rows.render();
                     console.log("x:" + response.data.x);
                     console.log("y:" + response.data.y);
                     console.log("r:" + response.data.r);

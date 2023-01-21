@@ -6,7 +6,7 @@ import axiosInstance from "../axios/Axios";
 let logStat = "";
 
 export function Login({
-                          setIsLoggedIn
+                          setIsLoggedIn, rows
                       }) {
     //TODO сделать из этого форму, пока так оставляю
 
@@ -41,6 +41,7 @@ export function Login({
                 if (response.status === 200) {
                     console.log("OK");
                     setIsLoggedIn('true');
+                    rows.render();
                     history.push('/user/');
                 } else {
                     setIsLoggedIn('false');
