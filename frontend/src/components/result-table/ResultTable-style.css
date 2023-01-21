@@ -32,8 +32,9 @@
     width: 100%;
     min-width: 440px;
     border-bottom: 1px solid #616afb;
-    border-top: 1px solid #616afb;
-    display: table;
+    overflow-scrolling: auto;
+    max-height: 800px;
+    overflow: scroll;
 }
 
 thead {
@@ -52,6 +53,9 @@ thead {
     min-height: 50px;
     width: 100%;
     color: #616afb;
+    border-top: 1px solid #616afb;
+    height: 50px;
+    display: inline-block;
 }
 
 #Column-name-X {
