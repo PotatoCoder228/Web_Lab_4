@@ -27,9 +27,9 @@ public class HitsController {
     public ResponseHitDto addNewHit(@RequestBody HitDto hit, Principal user) {
         hit.setLogin(user.getName());
         ResponseHitDto response = new ResponseHitDto();
-        response.setX(Double.parseDouble(String.format("%.2f", hit.getX())));
-        response.setY(Double.parseDouble(String.format("%.2f", hit.getY())));
-        response.setR(Double.parseDouble(String.format("%.2f", hit.getR())));
+        response.setX(Double.parseDouble(String.format("%.2f", hit.getX()).replace(",", ".")));
+        response.setY(Double.parseDouble(String.format("%.2f", hit.getY()).replace(",", ".")));
+        response.setR(Double.parseDouble(String.format("%.2f", hit.getR()).replace(",", ".")));
         response.setHitResult(hitService.addUserHit(hit));
         return response;
     }

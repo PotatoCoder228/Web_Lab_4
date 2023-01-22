@@ -1,6 +1,7 @@
 .Table-container {
     min-width: 440px;
     box-shadow: 0 0 5px #616afb;
+    min-height: 650px;
 }
 
 #names {
@@ -34,8 +35,8 @@
     min-width: 440px;
     border-bottom: 1px solid #616afb;
     overflow-scrolling: auto;
-    min-height: 600px;
-    max-height: 600px;
+    min-height: 650px;
+    max-height: 650px;
     overflow: scroll;
 }
 

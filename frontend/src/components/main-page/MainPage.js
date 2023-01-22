@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './MainPage-style.css';
 import Canvas from "../Canvas/Canvas";
 import ShotDataForm from "../shot-data-form/ShotDataForm";
@@ -7,6 +7,12 @@ import {Header} from "../header/Header";
 import axiosInstance from "../axios/Axios";
 
 export function MainPage({setIsLoggedIn, coordinates, rows}) {
+
+    const warnStatStyle = {
+        color: 'red'
+    }
+
+    const [connectionStat, setConnectionStat] = useState(<div className="MainPage-connect-stat"></div>);
     const loadTableFromServer = (rows) => {
         axiosInstance.get('/hits', {withCredentials: true}).then(function (response) {
             if (response.status === 200) {
@@ -28,7 +34,8 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
             <div className="Main-div">
                 <div className="MainPage-table">
                     <Canvas coordinates={coordinates} rows={rows}></Canvas>
-                    <ShotDataForm coordinates={coordinates} rows={rows}></ShotDataForm>
+                    <ShotDataForm coordinates={coordinates} rows={rows} connectionStat={connectionStat}
+                                  setConnectionStat={setConnectionStat}></ShotDataForm>
                     <ResultTable rows={rows}></ResultTable>
                 </div>
             </div>

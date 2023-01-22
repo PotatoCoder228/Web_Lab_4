@@ -38,16 +38,12 @@ export function Registration({
         setPassword(e.target.value)
     }
 
-    const redirectToLogin = (e) => {
-        history.push('/login');
-    }
-
     const handleRegistration = (e) => {
         setRegErr(<div className="Registration-status">Ожидание ответа...</div>);
         e.preventDefault();
         console.log("Пробуем");
         if (checkPassword !== password) {
-            setRegErr(<div className="Registration-status" style = {warnStyle}>Пароли не совпадают!</div>);
+            setRegErr(<div className="Registration-status" style={warnStyle}>Пароли не совпадают!</div>);
         } else {
             axiosInstance.post('/registration', {
                 login: login,
@@ -67,7 +63,8 @@ export function Registration({
                 console.log(error);
                 //forceRerendering();
                 if (error.response === undefined) {
-                    setRegErr(<div className="Registration-status" style = {warnStyle}>Не удалось установить соединение с сервером.</div>);
+                    setRegErr(<div className="Registration-status" style={warnStyle}>Не удалось установить соединение с
+                        сервером.</div>);
                 } else {
                     setRegErr(<div className="Registration-status">{error.response.data.result}</div>);
                 }

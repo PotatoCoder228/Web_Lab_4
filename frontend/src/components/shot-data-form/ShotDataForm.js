@@ -3,13 +3,21 @@ import './ShotDataForm-style.css';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
 
-const ShotDataForm = ({coordinates, rows}) => {
+const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat}) => {
 
     coordinates.setX(0);
     coordinates.setY(0);
     coordinates.setR(1);
 
+    const warnStatStyle = {
+        color: 'red'
+    }
+    const okStatStyle = {
+        color: 'green'
+    }
+
     const onSubmit = (e) => {
+        setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
         e.preventDefault();
         axiosInstance.post('/hits', {
             x: coordinates.getX(),
@@ -30,11 +38,21 @@ const ShotDataForm = ({coordinates, rows}) => {
                     console.log("y:" + response.data.y);
                     console.log("r:" + response.data.r);
                     console.log("hitResult:" + response.data.hitResult);
+                    setConnectionStat(<div className="MainPage-connect-stat" style={okStatStyle}>Отправлено</div>);
                 } else {
                     console.log("Hit is Not OK");
+                    setConnectionStat(<div className="MainPage-connect-stat"
+                                           style={warnStatStyle}>{response.data.result}</div>);
                 }
             }).catch((error) => {
             console.log(error);
+            if (error.response === undefined) {
+                setConnectionStat(<div className="MainPage-connect-stat" style={warnStatStyle}>Что-то пошло не
+                    так...<br></br>Соединение с сервером потеряно</div>);
+            } else {
+                setConnectionStat(<div className="MainPage-connect-stat"
+                                       style={warnStatStyle}>{error.response.data.result}</div>);
+            }
         });
     }
 
@@ -79,7 +97,7 @@ const ShotDataForm = ({coordinates, rows}) => {
     return (
         <div className="ShotDataForm-column">
             <div className="ShotDataForm-column-name">Coordinates</div>
-            <form className="ShotDataForm-coordinates-form" onSubmit={onSubmit}>
+            <div className="ShotDataForm-coordinates-form">
                 <div className="ShotDataForm-inputs">
 
                     <div className="ShotDataForm-input-name">
@@ -95,7 +113,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
                                value="-1"/>-1
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
-                               value="0" checked="true"/>0
+                               value="0"/>0
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
                                value="1"/>1
                         <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
@@ -132,10 +150,11 @@ const ShotDataForm = ({coordinates, rows}) => {
                     </div>
                 </div>
                 <div className="ShotDataForm-request-buttons">
-                    <button id="ShotDataForm-input-submit" type="submit">Отправить</button>
+                    {connectionStat}
+                    <button id="ShotDataForm-input-submit" onClick={onSubmit}>Отправить</button>
                     <button id="ShotDataForm-input-clear" onClick={onClearClick}>Очистить</button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 }
