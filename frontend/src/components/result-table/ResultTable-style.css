@@ -3,19 +3,19 @@
     box-shadow: 0 0 5px #616afb;
 }
 
-#names{
+#names {
     width: 100%;
     display: table;
 }
 
-.row-table{
+.row-table {
     display: table;
     width: 100%;
     float: left;
     text-align: center;
 }
 
-.x-column, .y-column, .r-column{
+.x-column, .y-column, .r-column {
     min-width: 10px;
     display: table-cell;
     table-layout: fixed;
@@ -24,7 +24,8 @@
     max-height: 20px;
     border-right: 1px solid #616afb;
 }
-.hitResult-column{
+
+.hitResult-column {
     min-width: 50px;
 }
 
@@ -45,8 +46,8 @@ thead {
     border: 1px solid #616afb;
 }
 
-.row-table{
-    border:1px solid #616afb ;
+.row-table {
+    border: 1px solid #616afb;
 }
 
 .ResultTable-column-name {

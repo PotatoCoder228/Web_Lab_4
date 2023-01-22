@@ -60,7 +60,7 @@ const ShotDataForm = ({coordinates, rows}) => {
         coordinates.setR(e.target.value);
     }
 
-    const onClearClick = (e)=>{
+    const onClearClick = (e) => {
         e.preventDefault();
         axiosInstance.delete('/hits', {withCredentials: true})
             .then(function (response) {
@@ -72,7 +72,7 @@ const ShotDataForm = ({coordinates, rows}) => {
                     console.log("Clearing error");
                 }
             }).catch((error) => {
-                console.log(error);
+            console.log(error);
         });
     }
 

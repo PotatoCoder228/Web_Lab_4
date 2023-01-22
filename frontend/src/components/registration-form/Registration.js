@@ -3,8 +3,6 @@ import './Registration-style.css';
 import {useHistory} from "react-router-dom";
 import axiosInstance from "../axios/Axios";
 
-let regErr = "";
-
 export function Registration({
                                  setIsLoggedIn,
                              }) {
@@ -14,17 +12,15 @@ export function Registration({
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
 
-    const useForceRerendering = () => {
-        const [counter, setCounter] = React.useState(0);
-        return () => setCounter(counter => counter + 1);
-    };
-    const forceRerendering = useForceRerendering();
-
+    const [regErr, setRegErr] = useState(<div></div>);
+    const warnStyle = {
+        color: 'red'
+    }
     const handleCheckPasswordChange = (e) => {
         if (password !== e.target.value) {
-            regErr = <div className="Registration-error">Пароли не совпадают!</div>
+            setRegErr(<div className="Registration-status">Пароли не совпадают!</div>);
         } else {
-            regErr = ""
+            setRegErr(<div></div>);
         }
         setCheckPassword(e.target.value);
     }
@@ -35,9 +31,9 @@ export function Registration({
 
     const handlePasswordChange = (e) => {
         if (checkPassword !== e.target.value) {
-            regErr = <div className="Registration-error">Пароли не совпадают!</div>
+            setRegErr(<div className="Registration-status">Пароли не совпадают!</div>);
         } else {
-            regErr = ""
+            setRegErr(<div></div>);
         }
         setPassword(e.target.value)
     }
@@ -47,10 +43,11 @@ export function Registration({
     }
 
     const handleRegistration = (e) => {
+        setRegErr(<div className="Registration-status">Ожидание ответа...</div>);
         e.preventDefault();
         console.log("Пробуем");
         if (checkPassword !== password) {
-            history.push('/registration');
+            setRegErr(<div className="Registration-status" style = {warnStyle}>Пароли не совпадают!</div>);
         } else {
             axiosInstance.post('/registration', {
                 login: login,
@@ -59,19 +56,21 @@ export function Registration({
                 .then(function (response) {
                     if (response.status === 200) {
                         setIsLoggedIn('true');
-                        regErr = <div className="Registration-error">Регистрация прошла успешно</div>
-                        console.log("OK");
+                        setRegErr(<div className="Registration-status">Регистрация прошла успешно</div>);
                         history.push('/user/');
                     } else {
                         setIsLoggedIn('false');
                         console.log("NOT OK")
-                        regErr = <div className="Registration-error">Что-то пошло не так...</div>
-                        history.push('/registration');
+                        setRegErr(<div className="Registration-status">{response.data.result}</div>);
                     }
                 }).catch(function (error) {
-                forceRerendering();
-                regErr = <div className="Registration-error">{error.response.data.result}</div>
-                history.push('/registration');
+                console.log(error);
+                //forceRerendering();
+                if (error.response === undefined) {
+                    setRegErr(<div className="Registration-status" style = {warnStyle}>Не удалось установить соединение с сервером.</div>);
+                } else {
+                    setRegErr(<div className="Registration-status">{error.response.data.result}</div>);
+                }
             });
         }
     };

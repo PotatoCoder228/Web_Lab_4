@@ -1,7 +1,7 @@
-import React, {createElement} from 'react';
+import React from 'react';
 import {Point} from "../../App";
 
-class Rows{
+class Rows {
     rows = [];
 
 
@@ -28,12 +28,12 @@ class Rows{
     render() {
         let table = document.getElementById("ResultTable-table");
         let names;
-        if(table){
+        if (table) {
             names = document.getElementById("names");
             table.innerHTML = "";
             table.append(names);
         }
-        for(let i = 0; i<this.rows.length; i++) {
+        for (let i = 0; i < this.rows.length; i++) {
             let div = document.createElement('div');
             div.className = "row-table"
             let x = document.createElement('div');

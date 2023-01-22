@@ -3,12 +3,13 @@ import './Login-style.css';
 import {useHistory} from "react-router-dom";
 import axiosInstance from "../axios/Axios";
 
-let logStat = "";
 
 export function Login({
                           setIsLoggedIn, rows
                       }) {
     //TODO сделать из этого форму, пока так оставляю
+
+    const [logStat, setLogStat] = useState(<div></div>);
 
     const history = useHistory()
 
@@ -28,8 +29,12 @@ export function Login({
         history.push('/registration');
     }
 
+    const warnStyle = {
+        color: 'red'
+    }
 
     const handleLogIn = (e) => {
+        setLogStat(<div className="Login-status">Ожидание ответа...</div>);
         e.preventDefault();
 
         axiosInstance.post('/login', {
@@ -44,15 +49,19 @@ export function Login({
                     history.push('/user/');
                 } else {
                     setIsLoggedIn('false');
-                    console.log("NOT OK")
-                    history.push('/');
+                    console.log("NOT OK");
+                    setLogStat(<div className="Login-status">{response.data.result}</div>);
                 }
             }).catch(function (error) {
-            setIsLoggedIn('false');
-            logStat =
-                <div className="Login-error">Не правильный логин или пароль.<br></br>Перепроверьте или зарегистрируйтесь
-                    на сайте.</div>;
-            history.push('/');
+            console.log(error);
+            if (error.response === undefined) {
+                setLogStat(<div className="Login-status" style={warnStyle}>Не удалось установить соединение с
+                    сервером</div>);
+                setIsLoggedIn('false');
+            } else {
+                setLogStat(<div className="Login-status">{error.response.data.result}</div>);
+                setIsLoggedIn('false');
+            }
         });
     };
 

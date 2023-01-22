@@ -1,6 +1,6 @@
 import React from 'react';
 import './MainPage-style.css';
-import {Canvas} from "../Canvas/Canvas";
+import Canvas from "../Canvas/Canvas";
 import ShotDataForm from "../shot-data-form/ShotDataForm";
 import {ResultTable} from "../result-table/ResultTable";
 import {Header} from "../header/Header";
