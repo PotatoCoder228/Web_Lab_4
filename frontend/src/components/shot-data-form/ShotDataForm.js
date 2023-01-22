@@ -69,12 +69,14 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
         let text = document.getElementsByClassName("ShotDataForm-text-y");
         coordinates.setY(text[0].value);
         setters.setYVal(text[0].value);
+        let rTexts = document.getElementsByClassName("Svg-graph");
     }
 
     const onButtonChange = (e) => {
         coordinates.setR(e.target.value);
         console.log(e.target.value);
         setters.setRVal(e.target.value);
+        coordinates.redrawSvg();
     }
 
     const onClearClick = (e) => {
@@ -89,7 +91,8 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                     let canvas = document.getElementById("Prev-hits-graph");
                     let canvasCtx = canvas.getContext('2d');
                     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-                    setConnectionStat(<div className="MainPage-connect-stat" style={okStatStyle}>{response.data.result}</div>);
+                    setConnectionStat(<div className="MainPage-connect-stat"
+                                           style={okStatStyle}>{response.data.result}</div>);
                 } else {
                     console.log("Clearing error");
                     setConnectionStat(<div className="MainPage-connect-stat"

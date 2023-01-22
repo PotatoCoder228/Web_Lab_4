@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseDto register(@RequestBody AuthDto registerDto) {
         ResponseDto response = authService.register(registerDto);
-        if(response.getResult().equals("")) {
+        if (response.getResult().equals("")) {
             authService.login(registerDto);
         }
         return response;

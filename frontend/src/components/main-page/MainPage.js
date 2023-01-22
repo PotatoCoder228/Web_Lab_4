@@ -25,6 +25,7 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
                 rows.convertToRow(response.data);
                 console.log("С сервера загружено " + rows.length + " строк");
                 rows.render();
+                coordinates.redrawSvg();
             } else {
                 console.log("Hit is Not OK");
             }

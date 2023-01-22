@@ -11,7 +11,6 @@ const Graph = ({coordinates, rows, setConnectionStat}) => {
     const loadPrevPoints = () => {
         const pointsCanvas = document.getElementById("Prev-hits-graph");
         clearCanvas(pointsCanvas);
-        console.log("Пытаюсь отрисовать " + rows.length + " строк");
         let pointsCtx = pointsCanvas.getContext('2d');
         for (let i = 0; i < rows.rows.length; i++) {
             pointsCtx.fillStyle = (rows.rows[i].hitResult === "Hit") ? 'green' : 'red';
@@ -75,7 +74,8 @@ const Graph = ({coordinates, rows, setConnectionStat}) => {
         });
     }
 
-    setInterval(loadPrevPoints, 100);
+    setTimeout(loadPrevPoints, 50);
+    setInterval(loadPrevPoints, 2);
     const drawCurrent = (event) => {
         setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
         event.preventDefault();
@@ -109,14 +109,15 @@ const Graph = ({coordinates, rows, setConnectionStat}) => {
             currentCtx.fill();
         }
     }
-
+    setTimeout(coordinates.redrawSvg, 200);
     return (
         <div className="Canvas-container">
             <div className="Header-col-name">
                 Graph
             </div>
             <div className="Image-container">
-                <img src={svgImage} className="Svg-graph" id="Svg-graph" width="440" height="440" alt="График"/>
+                <object data={svgImage} type="image/svg+xml" className="Svg-graph" id="Svg-graph" width="440px"
+                        height="440px"/>
                 <PointsCanvas loadPrevPoints={loadPrevPoints}></PointsCanvas>
                 <canvas className="Cur-graph" onClick={drawCurrent} id="Cur-graph" width="440"
                         height="440">Интерактивная область графика

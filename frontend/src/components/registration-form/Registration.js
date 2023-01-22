@@ -38,7 +38,7 @@ export function Registration({
         setPassword(e.target.value)
     }
 
-    const redirectToLogin = (e)=>{
+    const redirectToLogin = (e) => {
         history.push("/login");
     }
 

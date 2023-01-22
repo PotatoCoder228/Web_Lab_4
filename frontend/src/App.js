@@ -30,6 +30,25 @@ export class Point {
         this.r = val;
     }
 
+    redrawSvg() {
+        console.log(this.r / 2);
+        let svgGraph = document.getElementById("Svg-graph").getSVGDocument();
+        let minusR = ((this.r)).toString();
+        let buf = minusR.substring(0, 1)
+        minusR = minusR.replace(buf, "-" + buf);
+        let minusHalfR = (this.r / 2).toString();
+        buf = minusHalfR.substring(0, 1)
+        minusHalfR = minusHalfR.replace(buf, "-" + buf);
+        svgGraph.querySelector('.coordinate-text_minus-Rx').textContent = minusR;
+        svgGraph.querySelector('.coordinate-text_minus-Ry').textContent = minusR;
+        svgGraph.querySelector('.coordinate-text_minus-half-Rx').textContent = minusHalfR;
+        svgGraph.querySelector('.coordinate-text_minus-half-Ry').textContent = minusHalfR;
+        svgGraph.querySelector('.coordinate-text_plus-Rx').textContent = (this.r).toString();
+        svgGraph.querySelector('.coordinate-text_plus-Ry').textContent = (this.r).toString();
+        svgGraph.querySelector('.coordinate-text_plus-half-Rx').textContent = (this.r / 2).toString();
+        svgGraph.querySelector('.coordinate-text_plus-half-Ry').textContent = (this.r / 2).toString();
+    }
+
     setHitResult(val) {
         this.hitResult = val;
     }
