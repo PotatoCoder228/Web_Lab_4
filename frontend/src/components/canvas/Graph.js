@@ -86,6 +86,9 @@ const Graph = ({coordinates, rows, setConnectionStat}) => {
         coordinates.y = (-event.nativeEvent.offsetY + currentCanvas.height / 2) / canone * coordinates.r;
 
         sendNewPointOnServer();
+        let textInput = document.getElementById("ShotDataForm-text-y");
+        console.log("aboba"+textInput);
+        textInput.value = coordinates.y;
         if (sendStat === 0) {
             clearCanvas(currentCanvas, currentCtx);
 

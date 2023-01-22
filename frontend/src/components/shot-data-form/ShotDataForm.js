@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './ShotDataForm-style.css';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
@@ -50,6 +50,19 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                                        style={warnStatStyle}>{error.response.data.result}</div>);
             }
         });
+    }
+
+    const setDefCheckbox=()=>{
+        let checkboxes = document.getElementsByClassName("ShotDataForm-checkbox-x");
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+            if (0 === checkboxes[i].value) {
+                checkboxes[i].checked = true;
+                coordinates.setX(checkboxes[i].value);
+                console.log(checkboxes[i].value);
+            }
+        }
+        setters.setXVal(0);
     }
 
     const checkBoxOneValue = (e) => {
@@ -120,23 +133,23 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                         Enter X:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-x">
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="-4"/>-4
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="-3"/>-3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="-2"/>-2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="-1"/>-1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
-                               value="0"/>0
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
+                               value="0" defaultChecked="true"/>0
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="1"/>1
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="2"/>2
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="3"/>3
-                        <input type="checkbox" className="ShotDataForm-checkbox-x" onChange={checkBoxOneValue}
+                        <input type="checkbox" className="ShotDataForm-checkbox-x" onClick={checkBoxOneValue}
                                value="4"/>4
                     </div>
 
@@ -144,7 +157,7 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                         Enter Y:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-y">
-                        <input type="text" required="true" className="ShotDataForm-text-y" placeholder="From -3 to 5."
+                        <input type="text" required="true" className="ShotDataForm-text-y" id="ShotDataForm-text-y" placeholder="From -3 to 5."
                                onChange={onInputTextChange} autoComplete="true" defaultValue="0"></input>
                     </div>
                     <div className="ShotDataForm-input-name">

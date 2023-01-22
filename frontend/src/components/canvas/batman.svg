@@ -13,7 +13,7 @@
     <ellipse class="svg-figure batman-figure" rx="22" ry="50" cx="180" cy="150"
              fill="#282d39"/>
 
-    <ellipse class="svg-figure batman-figure" rx="20" ry="50" cx="260" cy="150"
+    <ellipse class="svg-figure batman-figure" rx="22" ry="50" cx="260" cy="150"
              fill="#282d39"/>
 
     <ellipse style="transform: rotate(125 deg);" class="svg-figure batman-figure" rx="16" ry="26" cx="200" cy="290"
