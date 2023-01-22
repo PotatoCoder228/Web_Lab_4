@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './MainPage-style.css';
-import Canvas from "../Canvas/Canvas";
+import Graph from "../canvas/Graph";
 import ShotDataForm from "../shot-data-form/ShotDataForm";
 import {ResultTable} from "../result-table/ResultTable";
 import {Header} from "../header/Header";
@@ -8,8 +8,14 @@ import axiosInstance from "../axios/Axios";
 
 export function MainPage({setIsLoggedIn, coordinates, rows}) {
 
-    const warnStatStyle = {
-        color: 'red'
+    const [xVal, setXVal] = useState(0);
+    const [yVal, setYVal] = useState(0);
+    const [rVal, setRVal] = useState(1);
+
+    const setters = {
+        setXVal: setXVal,
+        setYVal: setYVal,
+        setRVal: setRVal
     }
 
     const [connectionStat, setConnectionStat] = useState(<div className="MainPage-connect-stat"></div>);
@@ -17,9 +23,8 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
         axiosInstance.get('/hits', {withCredentials: true}).then(function (response) {
             if (response.status === 200) {
                 rows.convertToRow(response.data);
+                console.log("С сервера загружено " + rows.length + " строк");
                 rows.render();
-                console.log(response.data);
-                console.log(rows.rows);
             } else {
                 console.log("Hit is Not OK");
             }
@@ -33,9 +38,9 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
             <Header setIsLoggedIn={setIsLoggedIn} rows={rows}></Header>
             <div className="Main-div">
                 <div className="MainPage-table">
-                    <Canvas coordinates={coordinates} rows={rows} setConnectionStat={setConnectionStat}></Canvas>
+                    <Graph coordinates={coordinates} rows={rows} setConnectionStat={setConnectionStat}></Graph>
                     <ShotDataForm coordinates={coordinates} rows={rows} connectionStat={connectionStat}
-                                  setConnectionStat={setConnectionStat}></ShotDataForm>
+                                  setConnectionStat={setConnectionStat} setters={setters}></ShotDataForm>
                     <ResultTable rows={rows}></ResultTable>
                 </div>
             </div>

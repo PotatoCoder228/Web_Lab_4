@@ -1,12 +1,16 @@
 package ru.itmo.potatocoder228.lab4.web_lab_4.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.potatocoder228.lab4.web_lab_4.dto.HitDto;
+import ru.itmo.potatocoder228.lab4.web_lab_4.dto.ResponseDto;
 import ru.itmo.potatocoder228.lab4.web_lab_4.dto.ResponseHitDto;
 import ru.itmo.potatocoder228.lab4.web_lab_4.entities.HitEntity;
 import ru.itmo.potatocoder228.lab4.web_lab_4.services.HitService;
 
+import java.net.ConnectException;
 import java.security.Principal;
 import java.util.List;
 
@@ -40,7 +44,17 @@ public class HitsController {
     }
 
     @DeleteMapping("/hits")
-    public void deleteHitsByUser(Principal User) {
-        hitService.deleteHitsByLogin(User.getName());
+    public ResponseDto deleteHitsByUser(Principal User) {
+        ResponseDto response = new ResponseDto();
+        response.setResult(hitService.deleteHitsByLogin(User.getName()));
+        return response;
+    }
+
+    @ExceptionHandler(ConnectException.class)
+    ResponseEntity<ResponseDto> handleAuthenticationException(ConnectException exception) {
+        ResponseDto response = new ResponseDto();
+        response.setResult("Не удалось установить соединение с БД");
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }

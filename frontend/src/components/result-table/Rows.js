@@ -4,6 +4,7 @@ import {Point} from "../../App";
 class Rows {
     rows = [];
 
+    length = 0;
 
     addRow(arg) {
         this.rows.push(arg);
@@ -23,6 +24,7 @@ class Rows {
             point.setHitResult(table[i].hitResult);
             this.rows.push(point);
         }
+        this.length = table.length;
     }
 
     render() {

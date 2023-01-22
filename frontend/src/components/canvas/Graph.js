@@ -1,12 +1,28 @@
 import React, {useState} from 'react';
-import './Canvas-style.css';
+import './Graph-style.css';
 import svgImage from './batman.svg';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
+import PointsCanvas from "./PointsCanvas";
 
-const Canvas = ({coordinates, rows, setConnectionStat}) => {
+const Graph = ({coordinates, rows, setConnectionStat}) => {
 
-    const canone = 68;
+    const canone = 136;
+    const loadPrevPoints = () => {
+        const pointsCanvas = document.getElementById("Prev-hits-graph");
+        clearCanvas(pointsCanvas);
+        console.log("Пытаюсь отрисовать " + rows.length + " строк");
+        let pointsCtx = pointsCanvas.getContext('2d');
+        for (let i = 0; i < rows.rows.length; i++) {
+            pointsCtx.fillStyle = (rows.rows[i].hitResult === "Hit") ? 'green' : 'red';
+            pointsCtx.beginPath();
+            pointsCtx.arc(
+                rows.rows[i].x / coordinates.r * canone + pointsCanvas.width / 2,
+                -rows.rows[i].y / coordinates.r * canone + pointsCanvas.height / 2,
+                2, 0, 2 * Math.PI);
+            pointsCtx.fill();
+        }
+    }
 
     const warnStatStyle = {
         color: 'red'
@@ -17,8 +33,9 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
 
     const [sendStat, setSendStat] = useState(0);
 
-    const clearCanvas = (canvas, canvasCtx) => {
-        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    const clearCanvas = (pointsCanvas) => {
+        let canvasCtx = pointsCanvas.getContext('2d');
+        canvasCtx.clearRect(0, 0, pointsCanvas.width, pointsCanvas.height);
     }
 
     function sendNewPointOnServer() {
@@ -37,11 +54,7 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
                     point.setHitResult(response.data.hitResult);
                     rows.addRow(point);
                     rows.render();
-
-                    console.log("x:" + response.data.x);
-                    console.log("y:" + response.data.y);
-                    console.log("r:" + response.data.r);
-                    console.log("hitResult:" + response.data.hitResult);
+                    loadPrevPoints();
                     setConnectionStat(<div className="MainPage-connect-stat" style={okStatStyle}>Отправлено</div>);
                     setSendStat(0);
                 } else {
@@ -62,17 +75,19 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
         });
     }
 
+    setInterval(loadPrevPoints, 100);
     const drawCurrent = (event) => {
         setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
-        let currentCanvas = document.getElementById("Cur-graph");
-        let canvasCtx = currentCanvas.getContext('2d');
+        event.preventDefault();
 
+        const currentCanvas = document.getElementById("Cur-graph");
+        const currentCtx = currentCanvas.getContext('2d');
         coordinates.x = (event.nativeEvent.offsetX - currentCanvas.width / 2) / canone * coordinates.r;
         coordinates.y = (-event.nativeEvent.offsetY + currentCanvas.height / 2) / canone * coordinates.r;
 
         sendNewPointOnServer();
         if (sendStat === 0) {
-            clearCanvas(currentCanvas, canvasCtx);
+            clearCanvas(currentCanvas, currentCtx);
 
             const x = coordinates.x * canone / coordinates.r + currentCanvas.width / 2;
             const y = -(coordinates.y / coordinates.r * canone - currentCanvas.height / 2);
@@ -82,21 +97,18 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
                 return;
             }
 
-            canvasCtx.setLineDash([2, 2]);
-            canvasCtx.fillStyle = 'black';
-            canvasCtx.beginPath();
-            canvasCtx.moveTo(x, currentCanvas.width / 2);
-            canvasCtx.lineTo(x, y);
-            canvasCtx.moveTo(currentCanvas.height / 2, y);
-            canvasCtx.lineTo(x, y);
-            canvasCtx.stroke();
-            canvasCtx.arc(x, y, 2, 0, 2 * Math.PI);
-            canvasCtx.fill();
-        } else {
-
+            currentCtx.setLineDash([2, 2]);
+            currentCtx.fillStyle = 'black';
+            currentCtx.beginPath();
+            currentCtx.moveTo(x, currentCanvas.width / 2);
+            currentCtx.lineTo(x, y);
+            currentCtx.moveTo(currentCanvas.height / 2, y);
+            currentCtx.lineTo(x, y);
+            currentCtx.stroke();
+            currentCtx.arc(x, y, 2, 0, 2 * Math.PI);
+            currentCtx.fill();
         }
     }
-
 
     return (
         <div className="Canvas-container">
@@ -105,8 +117,7 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
             </div>
             <div className="Image-container">
                 <img src={svgImage} className="Svg-graph" id="Svg-graph" width="440" height="440" alt="График"/>
-                <canvas className="Prev-hits-graph" id="Prev-hits-graph" width="440" height="440">Предыдущие проверки
-                </canvas>
+                <PointsCanvas loadPrevPoints={loadPrevPoints}></PointsCanvas>
                 <canvas className="Cur-graph" onClick={drawCurrent} id="Cur-graph" width="440"
                         height="440">Интерактивная область графика
                 </canvas>
@@ -114,4 +125,4 @@ const Canvas = ({coordinates, rows, setConnectionStat}) => {
         </div>
     );
 }
-export default Canvas;
+export default Graph;

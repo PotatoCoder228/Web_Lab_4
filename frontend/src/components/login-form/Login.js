@@ -26,6 +26,7 @@ export function Login({
     }
 
     const redirectToRegister = (e) => {
+        e.preventDefault();
         history.push('/registration');
     }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {ErrorPage} from "./components/ErrorPage/ErrorPage";
+import {ErrorPage} from "./components/error-page/ErrorPage";
 import {Login} from "./components/login-form/Login";
 import {Header} from "./components/header/Header";
 import {MainPage} from "./components/main-page/MainPage";
@@ -12,9 +12,11 @@ import Rows from "./components/result-table/Rows";
 export class Point {
     x = 0;
     y = 0;
-    r = 2;
+    r = 1;
 
     hitResult;
+
+    length = 0;
 
     setX(val) {
         this.x = val;

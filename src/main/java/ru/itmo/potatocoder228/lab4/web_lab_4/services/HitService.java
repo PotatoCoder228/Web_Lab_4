@@ -21,9 +21,10 @@ public class HitService {
         return dao.findAllByLogin(login);
     }
 
-    public void deleteHitsByLogin(String login) {
+    public String deleteHitsByLogin(String login) {
         List<HitEntity> listOfHitsByUser = dao.findAllByLogin(login);
         dao.deleteAll(listOfHitsByUser);
+        return "История попаданий очищена";
     }
 
     public String addUserHit(HitDto hitDto) {

@@ -38,6 +38,10 @@ export function Registration({
         setPassword(e.target.value)
     }
 
+    const redirectToLogin = (e)=>{
+        history.push("/login");
+    }
+
     const handleRegistration = (e) => {
         setRegErr(<div className="Registration-status">Ожидание ответа...</div>);
         e.preventDefault();
@@ -104,7 +108,7 @@ export function Registration({
                     <button className="Log-in-button" type="submit">Зарегистрироваться</button>
                 </div>
                 <div id="Reg-div">
-                    <a className="Back-link" href="/login">К странице входа</a>
+                    <a className="Back-link" onClick={redirectToLogin}>К странице входа</a>
                 </div>
             </form>
         </div>

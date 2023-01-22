@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itmo.potatocoder228.lab4.web_lab_4.dto.AuthDto;
 import ru.itmo.potatocoder228.lab4.web_lab_4.dto.ResponseDto;
+import ru.itmo.potatocoder228.lab4.web_lab_4.exceptions.RegistrationException;
 import ru.itmo.potatocoder228.lab4.web_lab_4.services.AuthService;
 
 @RestController
@@ -26,8 +27,11 @@ public class AuthController {
 
     @PostMapping("/registration")
     public ResponseDto register(@RequestBody AuthDto registerDto) {
-        authService.register(registerDto);
-        return authService.login(registerDto);
+        ResponseDto response = authService.register(registerDto);
+        if(response.getResult().equals("")) {
+            authService.login(registerDto);
+        }
+        return response;
     }
 
     @PostMapping("/delete")
@@ -57,6 +61,15 @@ public class AuthController {
     ResponseEntity<ResponseDto> handleBadCredentialException(BadCredentialsException exception) {
         ResponseDto response = new ResponseDto();
         response.setResult("Неправильный логин или пароль.\nПопробуйте снова.");
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(response);
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    ResponseEntity<ResponseDto> registrationException(RegistrationException exception) {
+        ResponseDto response = new ResponseDto();
+        response.setResult(exception.getMessage());
         exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(response);

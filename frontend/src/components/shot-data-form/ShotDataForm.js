@@ -3,11 +3,7 @@ import './ShotDataForm-style.css';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
 
-const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat}) => {
-
-    coordinates.setX(0);
-    coordinates.setY(0);
-    coordinates.setR(1);
+const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, setters}) => {
 
     const warnStatStyle = {
         color: 'red'
@@ -66,19 +62,23 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat}) =>
                 console.log(checkboxes[i].value);
             }
         }
+        setters.setXVal(e.target.value);
     }
 
     const onInputTextChange = (e) => {
         let text = document.getElementsByClassName("ShotDataForm-text-y");
         coordinates.setY(text[0].value);
+        setters.setYVal(text[0].value);
     }
 
     const onButtonChange = (e) => {
-        e.preventDefault();
         coordinates.setR(e.target.value);
+        console.log(e.target.value);
+        setters.setRVal(e.target.value);
     }
 
     const onClearClick = (e) => {
+        setConnectionStat(<div className="MainPage-connect-stat">Очистка...</div>);
         e.preventDefault();
         axiosInstance.delete('/hits', {withCredentials: true})
             .then(function (response) {
@@ -86,11 +86,24 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat}) =>
                     console.log("Clearing is ok");
                     rows.deleteAll();
                     rows.render();
+                    let canvas = document.getElementById("Prev-hits-graph");
+                    let canvasCtx = canvas.getContext('2d');
+                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                    setConnectionStat(<div className="MainPage-connect-stat" style={okStatStyle}>{response.data.result}</div>);
                 } else {
                     console.log("Clearing error");
+                    setConnectionStat(<div className="MainPage-connect-stat"
+                                           style={warnStatStyle}>{response.data.result}</div>);
                 }
             }).catch((error) => {
             console.log(error);
+            if (error.response === undefined) {
+                setConnectionStat(<div className="MainPage-connect-stat" style={warnStatStyle}>Что-то пошло не
+                    так...<br></br>Соединение с сервером потеряно</div>);
+            } else {
+                setConnectionStat(<div className="MainPage-connect-stat"
+                                       style={warnStatStyle}>{error.response.data.result}</div>);
+            }
         });
     }
 
