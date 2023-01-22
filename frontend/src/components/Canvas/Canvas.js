@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Canvas-style.css';
 import svgImage from './batman.svg';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
 
-const Canvas = ({coordinates, rows}) => {
+const Canvas = ({coordinates, rows, setConnectionStat}) => {
 
     const canone = 68;
+
+    const warnStatStyle = {
+        color: 'red'
+    }
+    const okStatStyle = {
+        color: 'green'
+    }
+
+    const [sendStat, setSendStat] = useState(0);
 
     const clearCanvas = (canvas, canvasCtx) => {
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    const sendNewPointOnServer = () => {
+    function sendNewPointOnServer() {
         axiosInstance.post('/hits', {
             x: coordinates.getX(),
             y: coordinates.getY(),
@@ -28,48 +37,64 @@ const Canvas = ({coordinates, rows}) => {
                     point.setHitResult(response.data.hitResult);
                     rows.addRow(point);
                     rows.render();
+
                     console.log("x:" + response.data.x);
                     console.log("y:" + response.data.y);
                     console.log("r:" + response.data.r);
                     console.log("hitResult:" + response.data.hitResult);
+                    setConnectionStat(<div className="MainPage-connect-stat" style={okStatStyle}>Отправлено</div>);
+                    setSendStat(0);
                 } else {
                     console.log("Hit is Not OK");
+                    setConnectionStat(<div className="MainPage-connect-stat"
+                                           style={warnStatStyle}>{response.data.result}</div>);
+                    setSendStat(-1);
                 }
             }).catch((error) => {
-            console.log(error);
+            if (error.response === undefined) {
+                setConnectionStat(<div className="MainPage-connect-stat" style={warnStatStyle}>Что-то пошло не
+                    так...<br></br>Соединение с сервером потеряно</div>);
+            } else {
+                setConnectionStat(<div className="MainPage-connect-stat"
+                                       style={warnStatStyle}>{error.response.data.result}</div>);
+            }
+            setSendStat(-1);
         });
     }
 
     const drawCurrent = (event) => {
+        setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
         let currentCanvas = document.getElementById("Cur-graph");
         let canvasCtx = currentCanvas.getContext('2d');
-        clearCanvas(currentCanvas, canvasCtx);
 
-        /**/
         coordinates.x = (event.nativeEvent.offsetX - currentCanvas.width / 2) / canone * coordinates.r;
-
         coordinates.y = (-event.nativeEvent.offsetY + currentCanvas.height / 2) / canone * coordinates.r;
 
-        /**/
+        sendNewPointOnServer();
+        if (sendStat === 0) {
+            clearCanvas(currentCanvas, canvasCtx);
 
-        const x = coordinates.x * canone / coordinates.r + currentCanvas.width / 2;
-        const y = -(coordinates.y / coordinates.r * canone - currentCanvas.height / 2);
+            const x = coordinates.x * canone / coordinates.r + currentCanvas.width / 2;
+            const y = -(coordinates.y / coordinates.r * canone - currentCanvas.height / 2);
 
-        if (x > currentCanvas.width || x < 0 ||
-            y > currentCanvas.height || y < 0) {
-            return;
+            if (x > currentCanvas.width || x < 0 ||
+                y > currentCanvas.height || y < 0) {
+                return;
+            }
+
+            canvasCtx.setLineDash([2, 2]);
+            canvasCtx.fillStyle = 'black';
+            canvasCtx.beginPath();
+            canvasCtx.moveTo(x, currentCanvas.width / 2);
+            canvasCtx.lineTo(x, y);
+            canvasCtx.moveTo(currentCanvas.height / 2, y);
+            canvasCtx.lineTo(x, y);
+            canvasCtx.stroke();
+            canvasCtx.arc(x, y, 2, 0, 2 * Math.PI);
+            canvasCtx.fill();
+        } else {
+
         }
-
-        canvasCtx.setLineDash([2, 2]);
-        canvasCtx.fillStyle = 'black';
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(x, currentCanvas.width / 2);
-        canvasCtx.lineTo(x, y);
-        canvasCtx.moveTo(currentCanvas.height / 2, y);
-        canvasCtx.lineTo(x, y);
-        canvasCtx.stroke();
-        canvasCtx.arc(x, y, 2, 0, 2 * Math.PI);
-        canvasCtx.fill();
     }
 
 

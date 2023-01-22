@@ -33,7 +33,7 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
             <Header setIsLoggedIn={setIsLoggedIn} rows={rows}></Header>
             <div className="Main-div">
                 <div className="MainPage-table">
-                    <Canvas coordinates={coordinates} rows={rows}></Canvas>
+                    <Canvas coordinates={coordinates} rows={rows} setConnectionStat={setConnectionStat}></Canvas>
                     <ShotDataForm coordinates={coordinates} rows={rows} connectionStat={connectionStat}
                                   setConnectionStat={setConnectionStat}></ShotDataForm>
                     <ResultTable rows={rows}></ResultTable>

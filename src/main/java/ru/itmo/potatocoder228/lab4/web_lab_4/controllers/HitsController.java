@@ -26,10 +26,15 @@ public class HitsController {
     @PostMapping("/hits")
     public ResponseHitDto addNewHit(@RequestBody HitDto hit, Principal user) {
         hit.setLogin(user.getName());
+
+        hit.setX(Double.parseDouble(String.format("%.2f", hit.getX()).replace(",", ".")));
+        hit.setY(Double.parseDouble(String.format("%.2f", hit.getY()).replace(",", ".")));
+        hit.setR(Double.parseDouble(String.format("%.2f", hit.getR()).replace(",", ".")));
+
         ResponseHitDto response = new ResponseHitDto();
-        response.setX(Double.parseDouble(String.format("%.2f", hit.getX()).replace(",", ".")));
-        response.setY(Double.parseDouble(String.format("%.2f", hit.getY()).replace(",", ".")));
-        response.setR(Double.parseDouble(String.format("%.2f", hit.getR()).replace(",", ".")));
+        response.setX(hit.getX());
+        response.setY(hit.getY());
+        response.setR(hit.getR());
         response.setHitResult(hitService.addUserHit(hit));
         return response;
     }
