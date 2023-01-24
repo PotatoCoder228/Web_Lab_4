@@ -8,16 +8,6 @@ import axiosInstance from "../axios/Axios";
 
 export function MainPage({setIsLoggedIn, coordinates, rows}) {
 
-    const [xVal, setXVal] = useState(0);
-    const [yVal, setYVal] = useState(0);
-    const [rVal, setRVal] = useState(1);
-
-    const setters = {
-        setXVal: setXVal,
-        setYVal: setYVal,
-        setRVal: setRVal
-    }
-
     const [connectionStat, setConnectionStat] = useState(<div className="MainPage-connect-stat"></div>);
     const loadTableFromServer = (rows) => {
         axiosInstance.get('/hits', {withCredentials: true}).then(function (response) {
@@ -41,7 +31,7 @@ export function MainPage({setIsLoggedIn, coordinates, rows}) {
                 <div className="MainPage-table">
                     <Graph coordinates={coordinates} rows={rows} setConnectionStat={setConnectionStat}></Graph>
                     <ShotDataForm coordinates={coordinates} rows={rows} connectionStat={connectionStat}
-                                  setConnectionStat={setConnectionStat} setters={setters}></ShotDataForm>
+                                  setConnectionStat={setConnectionStat}></ShotDataForm>
                     <ResultTable rows={rows}></ResultTable>
                 </div>
             </div>

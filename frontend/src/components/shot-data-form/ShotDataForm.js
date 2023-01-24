@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './ShotDataForm-style.css';
 import axiosInstance from "../axios/Axios";
 import {Point} from "../../App";
@@ -52,19 +52,6 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
         });
     }
 
-    const setDefCheckbox=()=>{
-        let checkboxes = document.getElementsByClassName("ShotDataForm-checkbox-x");
-        for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = false;
-            if (0 === checkboxes[i].value) {
-                checkboxes[i].checked = true;
-                coordinates.setX(checkboxes[i].value);
-                console.log(checkboxes[i].value);
-            }
-        }
-        setters.setXVal(0);
-    }
-
     const checkBoxOneValue = (e) => {
         let checkboxes = document.getElementsByClassName("ShotDataForm-checkbox-x");
         for (let i = 0; i < checkboxes.length; i++) {
@@ -75,20 +62,16 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                 console.log(checkboxes[i].value);
             }
         }
-        setters.setXVal(e.target.value);
     }
 
     const onInputTextChange = (e) => {
         let text = document.getElementsByClassName("ShotDataForm-text-y");
         coordinates.setY(text[0].value);
-        setters.setYVal(text[0].value);
-        let rTexts = document.getElementsByClassName("Svg-graph");
     }
 
     const onButtonChange = (e) => {
         coordinates.setR(e.target.value);
         console.log(e.target.value);
-        setters.setRVal(e.target.value);
         coordinates.redrawSvg();
     }
 
@@ -157,7 +140,8 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
                         Enter Y:
                     </div>
                     <div className="ShotDataForm-input" id="ShotDataForm-input-y">
-                        <input type="text" required="true" className="ShotDataForm-text-y" id="ShotDataForm-text-y" placeholder="From -3 to 5."
+                        <input type="number" required="true" className="ShotDataForm-text-y" id="ShotDataForm-text-y"
+                               placeholder="From -3 to 5." max="5" min="-3"
                                onChange={onInputTextChange} autoComplete="true" defaultValue="0"></input>
                     </div>
                     <div className="ShotDataForm-input-name">
