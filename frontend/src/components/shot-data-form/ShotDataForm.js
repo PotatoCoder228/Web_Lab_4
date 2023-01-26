@@ -14,6 +14,11 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
 
     const onSubmit = (e) => {
         setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
+        if(coordinates.getY()>5||coordinates.getY()<-3){
+            setConnectionStat(<div className="MainPage-connect-stat"
+                                       style={warnStatStyle}>Значение Y не входит в диапазон от -3 до 5!</div>);
+            return;
+        }
         e.preventDefault();
         axiosInstance.post('/hits', {
             x: coordinates.getX(),
@@ -66,6 +71,7 @@ const ShotDataForm = ({coordinates, rows, connectionStat, setConnectionStat, set
 
     const onInputTextChange = (e) => {
         let text = document.getElementsByClassName("ShotDataForm-text-y");
+        text[0].value = text[0].value.replace(",",".");
         coordinates.setY(text[0].value);
     }
 
