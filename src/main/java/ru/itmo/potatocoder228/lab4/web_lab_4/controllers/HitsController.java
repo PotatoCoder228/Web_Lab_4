@@ -57,4 +57,12 @@ public class HitsController {
         exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+
+    @ExceptionHandler(NumberFormatException.class)
+    ResponseEntity<ResponseDto> numberFormatException(NumberFormatException exception) {
+        ResponseDto response = new ResponseDto();
+        response.setResult("Данные не прошли валидацию.");
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
 }

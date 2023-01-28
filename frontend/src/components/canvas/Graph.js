@@ -73,9 +73,7 @@ const Graph = ({coordinates, rows, setConnectionStat}) => {
             setSendStat(-1);
         });
     }
-
-    setTimeout(loadPrevPoints, 50);
-    setInterval(loadPrevPoints, 2);
+    setInterval(loadPrevPoints, 50);
     const drawCurrent = (event) => {
         setConnectionStat(<div className="MainPage-connect-stat">Отправка...</div>);
         event.preventDefault();

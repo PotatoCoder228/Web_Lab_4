@@ -83,7 +83,18 @@ function App() {
         localStorage.setItem('isLoggedIn', arg);
     }
 
+    const setTokenAndTime = (token, time) => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('remainingTime', time);
+    }
 
+    const getToken = () => {
+        localStorage.getItem('token');
+    }
+
+    const getTokenTime = () => {
+        localStorage.getItem('remainingTime');
+    }
     let rows = new Rows();
 
     return (
@@ -110,7 +121,6 @@ function App() {
                         <Registration setIsLoggedIn={setIsLoggedIn}></Registration>
                     </Route>
                     <Route exact path="/user/" render={() => {
-                        console.log(sessionStorage.getItem('isLoggedIn'))
                         if (getLoggedIn() === 'true') {
                             return <MainPage setIsLoggedIn={setIsLoggedIn} coordinates={coordinates}
                                              rows={rows}></MainPage>;

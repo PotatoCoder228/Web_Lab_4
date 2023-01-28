@@ -23,9 +23,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
-                .mvcMatchers("/user/**", "/hits")
+                .mvcMatchers( "/hits")
                 .hasAnyRole("USER")
-                .mvcMatchers("/", "/login", "/registration", "/logout")
+                .mvcMatchers( "/login", "/registration", "/logout")
                 .permitAll()
                 .and()
                 .cors()
